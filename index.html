@@ -293,29 +293,5 @@
 
     </div>
 
-    <script src="https://embed.twitch.tv/embed/v1.js"></script>
-    <script type="text/javascript">
-        // --- CONFIGURATION ---
-        const channelName = "nxtlevel24"; 
-        
-        // Automatic domain detection (Fixes security errors)
-        let parentDomain = window.location.hostname;
-        if (!parentDomain || parentDomain === "") {
-            parentDomain = "localhost";
-        }
-
-        const options = {
-            width: "100%",
-            height: "100%",
-            channel: channelName,
-            parent: [parentDomain],
-            layout: "video", // use "video-with-chat" if you want chat
-            autoplay: true,
-            muted: false
-        };
-
-        const embed = new Twitch.Embed("twitch-embed", options);
-    </script>
-
 </body>
 </html>
