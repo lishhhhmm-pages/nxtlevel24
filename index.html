@@ -3,284 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nxtlevel24 | Official Hub</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>NxtLevel24 | Stream Showcase</title>
     <style>
-        /* --- CSS VARIABLES & RESET --- */
+        /* --- CSS STYLES --- */
         :root {
-            --primary: #9146FF;       /* Twitch Purple */
-            --primary-dark: #772ce8;
-            --bg-dark: #0f0f13;       /* Deep Background */
-            --bg-card: #18181b;       /* Card Background */
+            --twitch-purple: #9146FF;
+            --twitch-dark: #0e0e10;
+            --twitch-card: #18181b;
             --text-main: #efeff1;
-            --text-muted: #adadb8;
-            --accent: #00e5ff;        /* Cyan Accent */
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        * { box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--twitch-dark);
             color: var(--text-main);
-            font-family: var(--font-main);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; padding: 0; margin: 0; }
-
-        /* --- LAYOUT --- */
-        .page-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 300px 1fr; /* Sidebar | Main Content */
-            gap: 25px;
+        /* Header */
+        header {
+            width: 100%;
+            background-color: var(--twitch-card);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
         }
 
-        /* --- SIDEBAR (PROFILE) --- */
-        .sidebar {
+        h1 {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2rem;
+        }
+
+        h1 span {
+            color: var(--twitch-purple);
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 1080px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .profile-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 30px 20px;
-            text-align: center;
-            border: 1px solid #303035;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Profile Image Placeholder */
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            color: white;
-            border: 4px solid var(--bg-dark);
-            box-shadow: 0 0 15px rgba(145, 70, 255, 0.5);
-        }
-
-        .username { font-size: 1.8rem; font-weight: 800; margin: 0; }
-        .handle { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 15px; display: block;}
-
-        .live-badge {
-            display: inline-block;
-            background: #ff0000;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-            animation: pulse 2s infinite;
-        }
-
-        /* Bio Section */
-        .bio-text {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .bio-highlight {
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Social Links Vertical */
-        .social-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .social-btn {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.05);
-            padding: 10px 15px;
+        /* Stream Container (Responsive 16:9) */
+        .stream-wrapper {
+            background: #000;
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .social-btn i { width: 30px; font-size: 1.1rem; }
-        .social-btn:hover { background: var(--primary); transform: translateX(5px); }
-        .social-btn.twitter:hover { background: #1DA1F2; }
-        .social-btn.instagram:hover { background: #E1306C; }
-        .social-btn.youtube:hover { background: #FF0000; }
-        .social-btn.discord:hover { background: #5865F2; }
-
-        /* --- MAIN CONTENT --- */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        /* Video Embed */
-        .stream-container {
-            width: 100%;
-            background: black;
-            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(145, 70, 255, 0.2);
+            /* Aspect Ratio Hack */
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
-            border: 1px solid #303035;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
         }
 
         #twitch-embed {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        /* Info Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .content-card {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #303035;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-
-        /* Schedule List */
-        .schedule-item {
+        /* Action Buttons */
+        .actions {
             display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-muted);
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
-        .schedule-item:last-child { border-bottom: none; }
-        .day { font-weight: bold; color: var(--text-main); }
+
+        .btn {
+            background-color: var(--twitch-card);
+            color: white;
+            border: 2px solid var(--twitch-purple);
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: var(--twitch-purple);
+            box-shadow: 0 0 10px var(--twitch-purple);
+        }
+
+        .btn.primary {
+            background-color: var(--twitch-purple);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background-color: #772ce8;
+        }
 
         /* Footer */
         footer {
-            grid-column: 1 / -1;
-            text-align: center;
-            margin-top: 40px;
-            color: var(--text-muted);
+            margin-top: auto;
+            padding: 20px;
+            color: #adadb8;
             font-size: 0.8rem;
-            padding-bottom: 20px;
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 900px) {
-            .page-wrapper { grid-template-columns: 1fr; }
-            .sidebar { max-width: 500px; margin: 0 auto; width: 100%; }
-            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page-wrapper">
-        
-        <aside class="sidebar">
-            <div class="profile-card">
-                <div class="profile-img">NL</div>
-                
-                <h1 class="username">NxtLevel24</h1>
-                <span class="handle">@nxtlevel24</span>
-                
-                <div class="live-badge">Check Stream</div>
+    <header>
+        <h1>NxtLevel<span>24</span></h1>
+    </header>
 
-                <div class="bio-text">
-                    <p>Welcome to the Next Level! 🚀</p>
-                    <p>I'm a variety streamer focused on <span class="bio-highlight">FPS</span> and <span class="bio-highlight">RPG</span> titles. Join the community for high-level gameplay and chill vibes.</p>
-                </div>
+    <div class="container">
+        <div class="stream-wrapper">
+            <div id="twitch-embed"></div>
+        </div>
 
-                <div class="social-list">
-                    <a href="https://www.twitch.tv/nxtlevel24" target="_blank" class="social-btn" style="background: var(--primary);">
-                        <i class="fab fa-twitch"></i> Watch Live
-                    </a>
-                    
-                    <a href="#" class="social-btn twitter">
-                        <i class="fab fa-twitter"></i> Twitter / X
-                    </a>
-                    <a href="#" class="social-btn instagram">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a>
-                    <a href="#" class="social-btn youtube">
-                        <i class="fab fa-youtube"></i> YouTube
-                    </a>
-                    <a href="#" class="social-btn discord">
-                        <i class="fab fa-discord"></i> Discord Community
-                    </a>
-                </div>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            
-            <div class="stream-container">
-                <div id="twitch-embed"></div>
-            </div>
-
-                <div class="content-card">
-                    <h3 class="card-title"><i class="fas fa-desktop"></i> Setup Specs</h3>
-                    <ul style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.8;">
-                        <li><strong>GPU:</strong> RTX 4070</li>
-                        <li><strong>CPU:</strong> Ryzen 9 5900X</li>
-                        <li><strong>RAM:</strong> 32GB DDR4</li>
-                        <li><strong>Mic:</strong> Shure SM7B</li>
-                    </ul>
-                </div>
-            </div>
-
-        </main>
-
-        <footer>
-            &copy; 2024 NxtLevel24. All Rights Reserved. <br>
-            <span style="opacity: 0.5;">Designed for the Community.</span>
-        </footer>
-
+        <div class="actions">
+            <a href="https://www.twitch.tv/nxtlevel24" target="_blank" class="btn primary">Watch on Twitch</a>
+            <a href="https://www.twitch.tv/nxtlevel24/schedule" target="_blank" class="btn">View Schedule</a>
+        </div>
     </div>
 
+    <footer>
+        <p>&copy; 2024 NxtLevel24 Community Showcase</p>
+    </footer>
+
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+    <script type="text/javascript">
+        // This script automatically detects the domain to fix the 'Parent' security issue
+        const streamName = "nxtlevel24";
+        
+        // Determine the parent domain (where this file is hosted)
+        let parentDomain = window.location.hostname;
+        
+        // Handle local development (if you open file directly, parent might be empty or localhost)
+        if (!parentDomain || parentDomain === "") {
+            parentDomain = "localhost"; 
+            console.log("Running locally. Note: Twitch embeds may not load fully without a valid https domain.");
+        }
+
+        const options = {
+            width: "100%",
+            height: "100%",
+            channel: streamName,
+            parent: [parentDomain], // This tells Twitch it's safe to play here
+            layout: "video", // Change to "video-with-chat" if you want chat embedded too
+            autoplay: true,
+            muted: false
+        };
+
+        const embed = new Twitch.Embed("twitch-embed", options);
+    </script>
 </body>
 </html>
